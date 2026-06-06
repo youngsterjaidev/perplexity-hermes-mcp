@@ -9,8 +9,48 @@
 
 ---
 
+## What Is This Project?
+
+**`perplexity-hermes-mcp`** is a personal infrastructure project by [Jai Dev](https://github.com/youngsterjaidev) — a Cloud Solutions Architect and DevOps Engineer working extensively with Azure, AWS, and GCP migrations.
+
+### The Problem
+
+Jai wanted to use **Perplexity AI** (and eventually ChatGPT) as a natural-language interface to send long-running research tasks, cloud migration analysis, and documentation jobs to a **self-hosted AI agent running on his own server** — without paying for hosted AI compute per task.
+
+The challenge: Perplexity's custom connector system speaks **MCP (Model Context Protocol)** over HTTPS. Hermes Agent speaks **OpenAI-compatible HTTP** (`/v1/chat/completions`). These two protocols do not talk to each other natively.
+
+### The Solution
+
+This project builds a **thin protocol bridge** — a FastAPI server that:
+
+1. **Speaks MCP** to Perplexity (initialize, tools/list, tools/call)
+2. **Translates** those tool calls into OpenAI-style requests
+3. **Forwards** them to a self-hosted Hermes Agent running on a private VM
+4. **Returns** structured results back to Perplexity
+
+The result: you can open Perplexity, type a task like _"Research Azure migration blockers for SQL Server 2019"_, and Hermes — running on your own server — does the work autonomously and returns the result directly into your Perplexity conversation.
+
+### Why Self-Host Hermes?
+
+- **Cost control** — run your own LLM inference or connect Hermes to your existing API keys
+- **Data privacy** — cloud migration work involves internal architecture details, cost data, and infrastructure specs that should not leave your environment
+- **Custom tools** — Hermes supports pluggable skills and MCP tool extensions tailored to your workflow
+- **Always-on agent** — your server runs 24/7 independent of any third-party hosted agent service
+
+### Who Is This For?
+
+This project is built for engineers, architects, and DevOps practitioners who:
+
+- Run or want to run a self-hosted autonomous AI agent
+- Want to control costs while still using frontier AI interfaces (Perplexity, ChatGPT)
+- Work with sensitive technical domains (cloud migrations, infrastructure, databases) where data privacy matters
+- Want a reproducible, auditable, version-controlled automation bridge — not a no-code SaaS connector
+
+---
+
 ## Table of Contents
 
+- [What Is This Project?](#what-is-this-project)
 - [Overview](#overview)
 - [Architecture](#architecture)
 - [How It Works](#how-it-works)
