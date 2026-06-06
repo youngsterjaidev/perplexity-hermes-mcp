@@ -1,0 +1,17 @@
+[Unit]
+Description=Perplexity → Hermes MCP Connector
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/perplexity-hermes-mcp
+EnvironmentFile=/home/ubuntu/perplexity-hermes-mcp/.env
+ExecStart=/home/ubuntu/perplexity-hermes-mcp/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

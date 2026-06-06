@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment secrets — NEVER commit .env
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
